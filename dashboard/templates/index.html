@@ -1,187 +1,86 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container-fluid">
-    <div class="row">
-        <!-- Sidebar -->
-        <!-- Your sidebar content commented out for brevity -->
-
-        <!-- Main content -->
-        <main class="col-md-10 ms-sm-auto col-lg-10 px-md-4">
-            <div>
-                <div class="my-5">
-                    <div class="p-5 text-center bg-body-tertiary rounded-3">
-                      <svg class="bi mt-4 mb-3" style="color: var(--bs-indigo);" width="100" height="100"><use xlink:href="#bootstrap"/></svg>
-                      <h1 class="text-body-emphasis">Jumbotron with icon</h1>
-                      <p class="col-lg-8 mx-auto fs-5 text-muted">
-                        This is a custom jumbotron featuring an SVG image at the top, some longer text that wraps early thanks to a responsive <code>.col-*</code> class, and a customized call to action.
-                      </p>
-                      <div class="d-inline-flex gap-2 mb-5">
-                        <button class="d-inline-flex align-items-center btn btn-primary btn-lg px-4 rounded-pill" type="button">
-                          Call to action
-                          <svg class="bi ms-2" width="24" height="24"><use xlink:href="#arrow-right-short"/></svg>
-                        </button>
-                        <button class="btn btn-outline-secondary btn-lg px-4 rounded-pill" type="button">
-                          Secondary link
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-            </div>
-
-            <div >
-                <div class="row">
-                    <div class="col-lg-4 col-md-4 col-sm-12 pr-0 mb-3">
-                      <div class="card text-white bg-primary">
-                        <div class="card-header"><i class="fa fa-shopping-bag"></i> New Orders</div>
-                        <div class="card-body">
-                          <h3 class="card-title">150</h3>
-                        </div>
-                        <a class="card-footer text-right" href="#">
-                          More info <i class="fa fa-arrow-circle-right"></i>
-                        </a>
-                      </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-12 pr-0 mb-3">
-                      <div class="card text-white bg-success">
-                        <div class="card-header"><i class="fa fa-bar-chart"></i> Bounce Rate</div>
-                        <div class="card-body">
-                          <h3 class="card-title">53%</h3>
-                        </div>
-                        <a class="card-footer text-right" href="#">
-                          More info <i class="fa fa-arrow-circle-right"></i>
-                        </a>
-                      </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-12 pr-0 mb-3">
-                      <div class="card text-white bg-warning">
-                        <div class="card-header"><i class="fa fa-user-plus"></i> User Registrations</div>
-                        <div class="card-body">
-                          <h3 class="card-title">44</h3>
-                        </div>
-                        <a class="card-footer text-right" href="#">
-                          More info <i class="fa fa-arrow-circle-right"></i>
-                        </a>
-                      </div>
-                    </div>
-                   
-                  </div>
-            </div>
-
-            <!-- Dashboard charts -->
-            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
-                <!-- Temperature chart -->
-                <div class="col">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">Temperatura</h5>
-                            <canvas id="temperatureChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Soil Humidity chart -->
-                <div class="col">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">Humedad de Suelo</h5>
-                            <canvas id="soilHumidityChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Solar Radiation chart (moved) -->
-                <div class="col">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">Radiación Solar</h5>
-                            <canvas id="solarRadiationChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Air Humidity chart -->
-                <div class="col">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">Humedad de Aire</h5>
-                            <canvas id="airHumidityChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Wind Intensity chart -->
-                <div class="col">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">Velocidad Vientos</h5>
-                            <canvas id="windIntensityChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-
-
-
-
-                <!-- INICIA CALENDARIO -->
-                <!-- Plant Growth calendar (replaced chart with calendar) -->
-                <div class="col">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">Calendario de Datos</h5>
-                            <!-- <div id="calendar"></div> -->
-                             <!-- asdasdasdasddasdasdasdasd punto de ref para pegar calendario -->
-
-                             <div class="wrapper">
-                                <header>
-                                  <p class="current-date"></p>
-                                  <div class="icons">
-                                    <span id="prev" class="material-icons clickable">keyboard_arrow_left</span>
-                                    <span id="next" class="material-icons clickable">keyboard_arrow_right</span>
-
-                                  </div>
-                                  <script src="script.js" defer></script>
-                                  <link rel="stylesheet" href="style.css">
-                                </header>
-                                <div class="calendar">
-                                  <ul class="weeks">
-                                    <li>D</li>
-                                    <li>L</li>
-                                    <li>M</li>
-                                    <li>M</li>
-                                    <li>J</li>
-                                    <li>V</li>
-                                    <li>S</li>
-                                  </ul>
-                                  <ul class="days"></ul>
-                                </div>
-                                <!-- <script src="script.js" defer></script> -->
-                            </div>
-                            
-                        </div>
-                    </div>
-                </div>
-                <!-- TERMINA CALENDARIO -->
-
-
-
-
-
-                
-
-                
-
-
-            </div>
-        </main>
+<body class="index-page">
+<div class="container">
+    <div class="humedad-tierra">
+        <div class="card-body">
+            <h5 class="card-title">Humedad de Suelo</h5>
+            <canvas id="soilHumidityChart"></canvas>
+        </div>
     </div>
+    <div class="humedad-aire">
+        <div class="card-body">
+            <h5 class="card-title">Humedad de Aire</h5>
+            <canvas id="airHumidityChart"></canvas>
+        </div>
+    </div>
+    <div class="temp">
+        <div class="card-body">
+            <h5 class="card-title">Temperatura</h5>
+            <canvas id="temperatureChart"></canvas>
+        </div>
+    </div>
+    <div class="vientos">
+        <div class="card-body">
+            <h5 class="card-title">Vientos</h5>
+            <canvas id="windIntensityChart"></canvas>
+        </div>
+    </div>
+    <div class="Radiacion-Solar">
+        <div class="card-body">
+            <h5 class="card-title">Radiación Solar</h5>
+            <canvas id="solarRadiationChart"></canvas>
+        </div>
+    </div>
+
+    <div class="Calendario">
+        <div class="card-body">
+            <!-- <div id="calendar"></div> -->
+            <div class="wrapper">
+                <header>
+                    <h5 class="card-title">Calendario de Datos<br></h5>    
+                    <p class="current-date"></p>
+                    <div class="icons">
+                        <span id="prev" class="material-icons clickable">keyboard_arrow_left</span>
+                        <span id="next" class="material-icons clickable">keyboard_arrow_right</span>
+                    </div>
+                    <script src="script.js" defer></script>
+                    <link rel="stylesheet" href="style.css">
+                </header>
+                <div class="calendar">
+                    <ul class="weeks">
+                        <li>D</li>
+                        <li>L</li>
+                        <li>M</li>
+                        <li>M</li>
+                        <li>J</li>
+                        <li>V</li>
+                        <li>S</li>
+                    </ul>
+                    <ul class="days"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="Consumo-Agua">
+        <div class="card-body">
+            <h5 class="card-title">Consumo Hídrico</h5>
+            <div id="waterConsumptionWidget" class="widget-content"></div>
+        </div>
+    </div>
+    
 </div>
+</body>
 
 <!-- Include Chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <!-- Include FullCalendar CSS and JS -->
 <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.4/dist/fullcalendar.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="style.css"> 
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.4/dist/fullcalendar.min.js"></script>
 
 <script>
@@ -356,7 +255,7 @@ currYear = date.getFullYear(),
 currMonth = date.getMonth();
 
 // storing full name of all months in array
-const months = ["Enero", "Febrereo", "Marzo", "Abril", "Mayo", "Junio", "Julio",
+const months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio",
               "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 
 const renderCalendar = () => {
@@ -402,5 +301,51 @@ prevNextIcon.forEach(icon => { // getting prev and next icons
         renderCalendar(); // calling renderCalendar function
     });
 });
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Fetch water consumption data (assuming it's available via a JSON endpoint or similar)
+    fetch("{{ url_for('static', filename='water_consumption.json') }}")
+        .then(response => response.json())
+        .then(data => {
+            // Sample data structure assumption
+            const waterConsumptionData = data.waterConsumption; // Adjust according to your actual data structure
+            
+            // Assuming you have daily water consumption data, you can display it
+            const waterConsumptionWidget = document.getElementById('waterConsumptionWidget');
+            
+            // Displaying water consumption for the current day (you may need to adjust this logic)
+            const currentDate = new Date();
+            const today = currentDate.toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
+            
+            if (waterConsumptionData.hasOwnProperty(today)) {
+                const waterConsumption = waterConsumptionData[today];
+                waterConsumptionWidget.innerHTML = `<p>Consumo de agua hoy: ${waterConsumption} litros</p>`;
+            } else {
+                waterConsumptionWidget.innerHTML = `<p>No se encontraron datos de consumo de agua para hoy.</p>`;
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching water consumption data:', error);
+        });
+});
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Hardcoded water consumption value (for mockup)
+    const waterConsumed = 4.682; // Replace with your actual data or hardcoded value
+
+    // Select the widget container
+    const waterConsumptionWidget = document.getElementById('waterConsumptionWidget');
+
+    // Update the widget content
+    waterConsumptionWidget.innerHTML = `
+        <h1> ${waterConsumed} Lts</h1>
+    `;
+});
+
+
+
 </script>
 {% endblock %}
