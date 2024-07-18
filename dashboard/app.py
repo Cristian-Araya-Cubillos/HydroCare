@@ -48,6 +48,11 @@ def index():
 def preguntasFrecuentes():
     return render_template('preguntas-frecuentes.html')
 
+@app.route('/manual')
+def manual():
+    return render_template('manual.html')
+
+
 @app.route('/chat-principal')
 def chatPrincipal():
     return render_template('chat-principal.html', historial=historial)
