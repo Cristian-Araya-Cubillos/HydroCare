@@ -44,6 +44,10 @@ cargar_prompts()
 def index():
     return render_template('index.html')
 
+@app.route('/preguntas-frecuentes')
+def preguntasFrecuentes():
+    return render_template('preguntas-frecuentes.html')
+
 @app.route('/chat-principal')
 def chatPrincipal():
     return render_template('chat-principal.html', historial=historial)
