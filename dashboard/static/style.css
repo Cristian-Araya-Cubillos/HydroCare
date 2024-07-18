@@ -133,23 +133,25 @@ body{
   min-height: 100vh;
   background: #9B59B6;
 } */
- 
 .wrapper {
-    width: 300px; /* Adjust the width as per your layout */
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.12);
-  }
-.wrapper header{
+  width: 400px; /* Adjust the width as per your layout */
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+}
+
+.wrapper header {
   display: flex;
   align-items: center;
   padding: 25px 30px 10px;
   justify-content: space-between;
 }
-/* header .icons{
+
+.wrapper header .icons {
   display: flex;
 }
-header .icons span{
+
+.wrapper header .icons span {
   height: 38px;
   width: 38px;
   margin: 0 1px;
@@ -161,50 +163,63 @@ header .icons span{
   user-select: none;
   border-radius: 50%;
 }
-.icons span:last-child{
+
+.wrapper header .icons span:last-child {
   margin-right: -10px;
 }
-header .icons span:hover{
+
+.wrapper header .icons span:hover {
   background: #f2f2f2;
 }
-header .current-date{
+
+.wrapper header .current-date {
   font-size: 1.45rem;
   font-weight: 500;
-} */
-.calendar{
-  padding: 20px;
 }
-.calendar ul{
+
+.calendar {
+  padding: 20px;
+  height: 400px; /* Adjust the height as needed */
+  overflow-y: auto; /* Add scrollbars if necessary */
+}
+
+.calendar ul {
   display: flex;
   flex-wrap: wrap;
   list-style: none;
   text-align: center;
 }
-.calendar .days{
-  margin-bottom: 20px;
-}
-.calendar li{
+
+.calendar .weeks li,
+.calendar .days li {
   color: #333;
   width: calc(100% / 7);
-  font-size: .70rem;
+  font-size: 0.9rem; /* Increase the font size of the days */
+  padding: 10px 0; /* Add padding to improve spacing */
 }
-.calendar .weeks li{
+
+.calendar .weeks li {
   font-weight: 500;
   cursor: default;
 }
-.calendar .days li{
-  z-index: 1;
+
+.calendar .days li {
+  margin-top: 20px; /* Decreased margin for tighter spacing */
   cursor: pointer;
   position: relative;
-  margin-top: 30px;
 }
-.days li.inactive{
+
+.calendar .days li.inactive {
   color: #aaa;
 }
-.days li.active{
+
+.calendar .days li.active {
   color: #fff;
+  background-color: #5CACF2; /* Highlight background color */
+  border-radius: 50%; /* Rounded highlight effect */
 }
-.days li::before{
+
+.calendar .days li::before {
   position: absolute;
   content: "";
   left: 50%;
@@ -215,15 +230,17 @@ header .current-date{
   border-radius: 50%;
   transform: translate(-50%, -50%);
 }
-.days li.active::before{
+
+.calendar .days li.active::before {
   background: #5CACF2;
 }
-.days li:not(.active):hover::before{
+
+.calendar .days li:not(.active):hover::before {
   background: #f2f2f2;
 }
 
 .clickable {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 /*Cristian*/
@@ -243,3 +260,103 @@ header .current-date{
 }
 
 /*Fin Cristian*/
+
+
+
+/* -- CSS para layout de dashboard cards en inicio -- */
+
+/* Styles specific to index.html */
+.index-page .container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 10px 10px;
+  grid-auto-flow: row;
+  grid-template-areas:
+      "humedad-tierra humedad-aire temp"
+      "vientos Radiacion-Solar Calendario"
+      "Consumo-Agua Consumo-Agua Calendario";
+}
+
+.index-page .humedad-tierra {
+  grid-area: humedad-tierra;
+}
+
+.index-page .humedad-aire {
+  grid-area: humedad-aire;
+}
+
+.index-page .temp {
+  grid-area: temp;
+}
+
+.index-page .vientos {
+  grid-area: vientos;
+}
+
+.index-page .Radiacion-Solar {
+  grid-area: Radiacion-Solar;
+}
+
+.index-page .Calendario {
+  grid-area: Calendario;
+}
+
+.index-page .Consumo-Agua {
+  grid-area: Consumo-Agua;
+}
+
+.index-page .chart-container,
+.index-page .Consumo-Agua,
+.index-page .Radiacion-Solar,
+.index-page .vientos,
+.index-page .temp,
+.index-page .humedad-aire,
+.index-page .humedad-tierra {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  padding: 10px;
+}
+
+.index-page .chart-container canvas {
+  max-width: 100%;
+}
+
+.chart-container canvas {
+  max-width: 100%;
+}
+
+
+.index-page .Consumo-Agua {
+  background-image: url('/static/water.jpg');
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+
+.index-page .Consumo-Agua .card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center items horizontally */
+  justify-content: flex-start; /* Align items at the start (top) vertically */
+  height: 100%; /* Ensure the card body takes up full height */
+  padding: 20px; /* Add padding inside the card body */
+  background-color: transparent; /* Remove semi-transparent background color */
+}
+
+.index-page .Consumo-Agua .card-title {
+  font-size: 2rem; /* Adjust the font size for the card title */
+  margin-bottom: 10px; /* Optional: Add some margin below the title */
+  text-align: left; /* Align title text to the left */
+  color: #333; /* Set title text color to black */
+}
+
+.index-page .widget-content {
+  font-size: 10rem; /* Adjust the font size for the water consumption text */
+  text-align: center; /* Center the text horizontally */
+  margin-top: 10px; /* Adjust margin as needed */
+  color: #333;
+}
