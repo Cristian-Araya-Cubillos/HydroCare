@@ -52,6 +52,10 @@ def preguntasFrecuentes():
 def manual():
     return render_template('manual.html')
 
+@app.route('/alerta')
+def alerta():
+    return render_template('alerta.html')
+
 
 @app.route('/chat-principal')
 def chatPrincipal():

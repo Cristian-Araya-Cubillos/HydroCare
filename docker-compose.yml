@@ -11,7 +11,7 @@ services:
     networks:
       - market_net
     environment:
-      OPENAI_API_KEY: ""
+      OPENAI_API_KEY: "sk-proj-rK1Mt9CbryZK0DEqtxFVT3BlbkFJhzGgZ8BYN0DkUo14yNjS"
     volumes:
       - ./dashboard:/app 
 
