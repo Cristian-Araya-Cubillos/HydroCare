@@ -76,6 +76,26 @@ def chat():
     
     return jsonify({"respuesta": respuesta})
 
+@app.route('/chat_frecuente', methods=['POST'])
+def chat_frecuente():
+    historial_temp = []
+    mensaje = request.json['mensaje']
+    
+    # Añadir el mensaje del usuario al historial
+    historial_temp.append({"role": "user", "content": mensaje})
+    
+    # Enviar el historial a la API
+    response = openai.chat.completions.create(
+        model="gpt-3.5-turbo",
+        messages=historial
+    )
+    
+    # Obtener la respuesta y añadirla al historial
+    respuesta = response.choices[0].message.content
+    historial_temp.append({"role": "assistant", "content": respuesta})
+    
+    return jsonify({"respuesta": respuesta})
+
 # Ruta para obtener los datos del gráfico
 @app.route('/get_chart_data')
 def get_chart_data():

@@ -3,7 +3,7 @@ version: "3.7"
 services:
 
   tensorflow:
-    container_name: hackathon-dashboard-copia
+    container_name: hackathon-dashboard-copia2
     build:
       context: ./dashboard
     ports:
