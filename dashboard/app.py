@@ -87,16 +87,17 @@ def chat():
 
 @app.route('/chat_frecuente', methods=['POST'])
 def chat_frecuente():
+    print("mensaje")
     historial_temp = []
     mensaje = request.json['mensaje']
-    
+    print("mensaje")
     # Añadir el mensaje del usuario al historial
     historial_temp.append({"role": "user", "content": mensaje})
     
     # Enviar el historial a la API
     response = openai.chat.completions.create(
         model="gpt-3.5-turbo",
-        messages=historial
+        messages=historial_temp
     )
     
     # Obtener la respuesta y añadirla al historial

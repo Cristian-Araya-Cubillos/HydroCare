@@ -48,9 +48,9 @@
         userMessageElement.classList.add('message', 'user');
         userMessageElement.textContent = question;
         chatBox.appendChild(userMessageElement);
-
+        console.log(question)
         // Hacer la solicitud al servidor
-        const response = await fetch('/chat', {
+        const response = await fetch('/chat_frecuente', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
