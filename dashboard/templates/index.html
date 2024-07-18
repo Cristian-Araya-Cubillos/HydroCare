@@ -1,0 +1,350 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <!-- Your sidebar content commented out for brevity -->
+
+        <!-- Main content -->
+        <main class="col-md-10 ms-sm-auto col-lg-10 px-md-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Datos Recientes</h1>
+            </div>
+
+            <!-- Dashboard charts -->
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
+                <!-- Temperature chart -->
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Temperatura</h5>
+                            <canvas id="temperatureChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Soil Humidity chart -->
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Humedad de Suelo</h5>
+                            <canvas id="soilHumidityChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Solar Radiation chart (moved) -->
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Radiación Solar</h5>
+                            <canvas id="solarRadiationChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Air Humidity chart -->
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Humedad de Aire</h5>
+                            <canvas id="airHumidityChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Wind Intensity chart -->
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Velocidad Vientos</h5>
+                            <canvas id="windIntensityChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <!-- INICIA CALENDARIO -->
+                <!-- Plant Growth calendar (replaced chart with calendar) -->
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Calendario de Datos</h5>
+                            <!-- <div id="calendar"></div> -->
+                             <!-- asdasdasdasddasdasdasdasd punto de ref para pegar calendario -->
+
+                             <div class="wrapper">
+                                <header>
+                                  <p class="current-date"></p>
+                                  <div class="icons">
+                                    <span id="prev" class="material-icons clickable">keyboard_arrow_left</span>
+                                    <span id="next" class="material-icons clickable">keyboard_arrow_right</span>
+
+                                  </div>
+                                  <script src="script.js" defer></script>
+                                  <link rel="stylesheet" href="style.css">
+                                </header>
+                                <div class="calendar">
+                                  <ul class="weeks">
+                                    <li>D</li>
+                                    <li>L</li>
+                                    <li>M</li>
+                                    <li>M</li>
+                                    <li>J</li>
+                                    <li>V</li>
+                                    <li>S</li>
+                                  </ul>
+                                  <ul class="days"></ul>
+                                </div>
+                                <!-- <script src="script.js" defer></script> -->
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                <!-- TERMINA CALENDARIO -->
+
+
+
+
+
+                
+
+                
+
+
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- Include Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- Include FullCalendar CSS and JS -->
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.4/dist/fullcalendar.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.4/dist/fullcalendar.min.js"></script>
+
+<script>
+    
+
+
+
+    // Initialize FullCalendar
+    document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+            },
+            events: [
+                // Sample events (replace with your actual events)
+                { title: 'Event 1', start: '2024-07-17' },
+                { title: 'Event 2', start: '2024-07-20', end: '2024-07-22' }
+            ]
+        });
+
+        calendar.render();
+    });
+
+
+    // Load data from JSON
+    fetch("{{ url_for('static', filename='data.json') }}")
+        .then(response => response.json())
+        .then(data => {
+
+        // Sample data for charts (replace with actual data)
+        const hours = ['1am', '2am', '3am', '4am', '5am', '6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm', '9pm', '10pm', '11pm', '12am'];
+
+        // Define your colors
+        const colors = {
+            temperature: '#637329',
+            soilHumidity: '#808C27',
+            plantGrowth: '#BF9D7E',
+            airHumidity: '#5CACF2',
+            windIntensity: '#307CBF',
+            solarRadiation: '#FFCE56' // You can change this if you want a different color
+        };
+
+        // Temperature chart
+        const ctxTemperature = document.getElementById('temperatureChart').getContext('2d');
+        const temperatureChart = new Chart(ctxTemperature, {
+            type: 'line',
+            data: {
+                labels: hours,
+                datasets: [{
+                    label: 'Temperature (°C)',
+                    data: data.temperatureChart,
+                    backgroundColor: 'rgba(99, 115, 41, 0.2)',
+                    borderColor: colors.temperature,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: false
+                    }
+                }
+            }
+        });
+
+        // Soil Humidity chart
+        const ctxSoilHumidity = document.getElementById('soilHumidityChart').getContext('2d');
+        const soilHumidityChart = new Chart(ctxSoilHumidity, {
+            type: 'line',
+            data: {
+                labels: hours,
+                datasets: [{
+                    label: 'Soil Humidity (%)',
+                    data: data.soilHumidityChart,
+                    backgroundColor: 'rgba(128, 140, 39, 0.2)',
+                    borderColor: colors.soilHumidity,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Air Humidity chart
+        const ctxAirHumidity = document.getElementById('airHumidityChart').getContext('2d');
+        const airHumidityChart = new Chart(ctxAirHumidity, {
+            type: 'line',
+            data: {
+                labels: hours,
+                datasets: [{
+                    label: 'Air Humidity (%)',
+                    data: data.airHumidityChart,
+                    backgroundColor: 'rgba(92, 172, 242, 0.2)',
+                    borderColor: colors.airHumidity,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Wind Intensity chart
+        const ctxWindIntensity = document.getElementById('windIntensityChart').getContext('2d');
+        const windIntensityChart = new Chart(ctxWindIntensity, {
+            type: 'bar',
+            data: {
+                labels: hours,
+                datasets: [{
+                    label: 'Wind Intensity (km/h)',
+                    data: data.windIntensityChart,
+                    backgroundColor: 'rgba(48, 124, 191, 0.2)',
+                    borderColor: colors.windIntensity,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Solar Radiation chart
+        const ctxSolarRadiation = document.getElementById('solarRadiationChart').getContext('2d');
+        const solarRadiationChart = new Chart(ctxSolarRadiation, {
+            type: 'line',
+            data: {
+                labels: hours,
+                datasets: [{
+                    label: 'Solar Radiation (W/m²)',
+                    data: data.solarRadiationChart,
+                    backgroundColor: 'rgba(255, 205, 86, 0.2)', // Update if needed
+                    borderColor: colors.solarRadiation,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+    });
+
+    const daysTag = document.querySelector(".days"),
+currentDate = document.querySelector(".current-date"),
+prevNextIcon = document.querySelectorAll(".icons span");
+
+// getting new date, current year and month
+let date = new Date(),
+currYear = date.getFullYear(),
+currMonth = date.getMonth();
+
+// storing full name of all months in array
+const months = ["Enero", "Febrereo", "Marzo", "Abril", "Mayo", "Junio", "Julio",
+              "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+
+const renderCalendar = () => {
+    let firstDayofMonth = new Date(currYear, currMonth, 1).getDay(),
+        lastDateofMonth = new Date(currYear, currMonth + 1, 0).getDate(),
+        lastDayofMonth = new Date(currYear, currMonth, lastDateofMonth).getDay(),
+        lastDateofLastMonth = new Date(currYear, currMonth, 0).getDate();
+    let liTag = "";
+
+    for (let i = firstDayofMonth; i > 0; i--) {
+        liTag += `<li class="inactive">${lastDateofLastMonth - i + 1}</li>`;
+    }
+
+    for (let i = 1; i <= lastDateofMonth; i++) {
+        let isToday = i === date.getDate() && currMonth === new Date().getMonth() 
+                     && currYear === new Date().getFullYear() ? "active" : "";
+        liTag += `<li class="${isToday}">${i}</li>`;
+    }
+
+    for (let i = lastDayofMonth; i < 6; i++) {
+        liTag += `<li class="inactive">${i - lastDayofMonth + 1}</li>`
+    }
+
+    // Use the Spanish month name from the months array
+    currentDate.innerText = `${months[currMonth]} ${currYear}`;
+    daysTag.innerHTML = liTag;
+}
+renderCalendar();
+
+prevNextIcon.forEach(icon => { // getting prev and next icons
+    icon.addEventListener("click", () => { // adding click event on both icons
+        // if clicked icon is previous icon then decrement current month by 1 else increment it by 1
+        currMonth = icon.id === "prev" ? currMonth - 1 : currMonth + 1;
+
+        if(currMonth < 0 || currMonth > 11) { // if current month is less than 0 or greater than 11
+            // creating a new date of current year & month and pass it as date value
+            date = new Date(currYear, currMonth, new Date().getDate());
+            currYear = date.getFullYear(); // updating current year with new date year
+            currMonth = date.getMonth(); // updating current month with new date month
+        } else {
+            date = new Date(); // pass the current date as date value
+        }
+        renderCalendar(); // calling renderCalendar function
+    });
+});
+</script>
+{% endblock %}

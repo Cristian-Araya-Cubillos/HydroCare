@@ -1,0 +1,20 @@
+version: "3.7"
+
+services:
+
+  tensorflow:
+    container_name: hackathon-dashboard-copia
+    build:
+      context: ./dashboard
+    ports:
+      - "5000:5000"
+    networks:
+      - market_net
+    environment:
+      OPENAI_API_KEY: ""
+    volumes:
+      - ./dashboard:/app 
+
+networks:
+  market_net:
+    driver: bridge

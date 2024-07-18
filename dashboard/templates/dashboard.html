@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <!-- Your sidebar content commented out for brevity -->
+
+        <!-- Main content -->
+        <main class="col-md-100 ms-sm-auto col-lg-100 px-md-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-10 border-bottom">
+                <h1 class="h2">Datos Recientes</h1>
+            </div>
+
+            <!-- Dashboard charts -->
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-30 g-3">
+
+                 <!-- Temperature chart -->
+                 <div class="col">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Temperatura</h5>
+                            <canvas id="tempChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Soil Humidity chart -->
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Humedad</h5>
+                            <canvas id="humidityChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Solar Radiation chart (moved) -->
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">PH</h5>
+                            <canvas id="phChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Air Humidity chart -->
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Lluvia Caida</h5>
+                            <canvas id="rainfallChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+
+          
+        
+                 </div>
+        </main>
+    </div>
+</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        async function fetchChartData() {
+            const response = await fetch('/get_chart_data');
+            const data = await response.json();
+
+            // Sepal Length Chart
+            new Chart(document.getElementById('tempChart').getContext('2d'), {
+                type: 'bar',
+                data: data.tempData,
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            // Sepal Width Chart
+            new Chart(document.getElementById('humidityChart').getContext('2d'), {
+                type: 'bar',
+                data: data.humidityData,
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            // Petal Length Chart
+            new Chart(document.getElementById('phChart').getContext('2d'), {
+                type: 'bar',
+                data: data.phData,
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            // Petal Width Chart
+            new Chart(document.getElementById('rainfallChart').getContext('2d'), {
+                type: 'bar',
+                data: data.rainfallhData,
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        // Llamar a la función para obtener los datos del gráfico
+        fetchChartData();
+    </script>
+
+    {% endblock %}

@@ -1,0 +1,245 @@
+:root {
+    --top-height: 3.5rem;
+}
+
+
+
+/* Estilos del main content */
+.main-content {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+
+.container {
+
+    display: flex;
+
+    height: 90vh;
+    width: 100%;
+}
+
+/* Estilos específicos del chat */
+.chat-container {
+    width: 100%;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 80vh;
+}
+
+.chat-box {
+    height: 90%;
+    overflow-y: scroll;
+    padding: 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+.message {
+    background-color: #f8f9fa;
+    padding: 10px 16px;
+    border-radius: 30px;
+    margin-bottom: 10px;
+    clear: both;
+    overflow: hidden;
+    max-width: 70%;
+    word-wrap: break-word;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.05);
+}
+
+.message-content {
+    padding: 10px 15px;
+    border-radius: 8px;
+    max-width: 70%;
+    word-wrap: break-word;
+}
+
+.message.user {
+    float: right;
+    background-color: #007bff;
+    color: #fff;
+}
+
+.message.assistant {
+    float: left;
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.input-box{
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: white;
+    width: 100%;
+}
+
+#user-input{
+    flex-grow: 1;
+    margin-right: 6px;
+    border: none;
+    outline: none;
+    border-radius: 50px;
+    height: 30px;
+    font-size: 16px;
+    background-color: #f8f9fa;
+    padding: 10px 16px 10px 16px;
+    width: 80%;
+}
+
+#sendButton {
+    background-color: #007bff;
+    border-radius: 40px;
+    outline: none;
+    border: none;
+    padding: 14px 16px 14px 16px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  #sendButton:hover{
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.05);
+  }
+  
+  #sendButton:active {
+    background-color: #3b9aff;
+  }
+
+
+
+
+
+
+/* CODIGO PARA CALENDARIO INTERACTIVO */
+
+
+/* Import Google font - Poppins */
+/* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+body{
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  justify-content: center;
+  min-height: 100vh;
+  background: #9B59B6;
+} */
+ 
+.wrapper {
+    width: 300px; /* Adjust the width as per your layout */
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+  }
+.wrapper header{
+  display: flex;
+  align-items: center;
+  padding: 25px 30px 10px;
+  justify-content: space-between;
+}
+/* header .icons{
+  display: flex;
+}
+header .icons span{
+  height: 38px;
+  width: 38px;
+  margin: 0 1px;
+  cursor: pointer;
+  color: #878787;
+  text-align: center;
+  line-height: 38px;
+  font-size: 1.9rem;
+  user-select: none;
+  border-radius: 50%;
+}
+.icons span:last-child{
+  margin-right: -10px;
+}
+header .icons span:hover{
+  background: #f2f2f2;
+}
+header .current-date{
+  font-size: 1.45rem;
+  font-weight: 500;
+} */
+.calendar{
+  padding: 20px;
+}
+.calendar ul{
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  text-align: center;
+}
+.calendar .days{
+  margin-bottom: 20px;
+}
+.calendar li{
+  color: #333;
+  width: calc(100% / 7);
+  font-size: .70rem;
+}
+.calendar .weeks li{
+  font-weight: 500;
+  cursor: default;
+}
+.calendar .days li{
+  z-index: 1;
+  cursor: pointer;
+  position: relative;
+  margin-top: 30px;
+}
+.days li.inactive{
+  color: #aaa;
+}
+.days li.active{
+  color: #fff;
+}
+.days li::before{
+  position: absolute;
+  content: "";
+  left: 50%;
+  top: 50%;
+  height: 40px;
+  width: 40px;
+  z-index: -1;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+.days li.active::before{
+  background: #5CACF2;
+}
+.days li:not(.active):hover::before{
+  background: #f2f2f2;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+/*Cristian*/
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+.chart-container {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  padding: 10px;
+}
+.chart-container canvas {
+  max-width: 100%;
+}
+
+/*Fin Cristian*/
