@@ -2,5 +2,131 @@
 
 {% block content %}
 
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <!-- Your sidebar content commented out for brevity -->
+
+        <!-- Main content -->
+        <main class="col-md-10 ms-sm-auto col-lg-10 px-md-4">
+            <div>
+
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Alerta</h1>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12 pr-0 mb-3">
+                        <h3>Leve</h3>
+                        <div class="card text-black bg-warning">
+                            <div class="card-header"><i class="fa fa-tint"></i> Humedad del Suelo (Baja)</div>
+                            <div class="card-body">
+                                <h3 class="card-title">10% - 20%</h3>
+                                <p class="card-text">Humedad del suelo baja, considerar riego pronto.</p>
+                            </div>
+                        </div>
+                        </br>
+                        <div class="card text-black bg-warning">
+                            <div class="card-header"><i class="fa fa-tint"></i> Humedad del Suelo (Alta)</div>
+                            <div class="card-body">
+                                <h3 class="card-title">70% - 80%</h3>
+                                <p class="card-text">Humedad del suelo alta, monitorear drenaje.</p>
+                            </div>
+                        </div>
+                        </br>
+                        <div class="card text-black bg-warning">
+                            <div class="card-header"><i class="fa fa-thermometer-empty"></i> Temperatura del Aire (Baja)</div>
+                            <div class="card-body">
+                                <h3 class="card-title">0°C - 5°C</h3>
+                                <p class="card-text">Temperaturas bajas, riesgo de estrés en plantas sensibles al frío.</p>
+                            </div>
+                        </div>
+                        </br>
+                        <div class="card text-black bg-warning">
+                            <div class="card-header"><i class="fa fa-thermometer-full"></i> Temperatura del Aire (Alta)</div>
+                            <div class="card-body">
+                                <h3 class="card-title">35°C - 40°C</h3>
+                                <p class="card-text">Temperaturas altas, riesgo de estrés térmico.</p>
+                            </div>
+                        </div>
+                        </br>
+                        <div class="card text-black bg-warning">
+                            <div class="card-header"><i class="fa fa-flask"></i> pH del Suelo (Ácido)</div>
+                            <div class="card-body">
+                                <h3 class="card-title">4.5 - 5.5</h3>
+                                <p class="card-text">pH bajo, monitorear y ajustar si es necesario.</p>
+                            </div>
+                        </div>
+                        </br>
+                        <div class="card text-black bg-warning">
+                            <div class="card-header"><i class="fa fa-flask"></i> pH del Suelo (Alcalino)</div>
+                            <div class="card-body">
+                                <h3 class="card-title">7.5 - 9</h3>
+                                <p class="card-text">pH alto, monitorear y ajustar si es necesario.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-12 pr-0 mb-3">
+                        <h3>Crítico</h3>
+                        <div class="card text-white bg-danger">
+                            <div class="card-header"><i class="fa fa-tint"></i> Humedad del Suelo (Baja)</div>
+                            <div class="card-body">
+                                <h3 class="card-title">< 10%</h3>
+                                <p class="card-text">Riesgo de deshidratación de las plantas. Se requiere riego inmediato.</p>
+                            </div>
+                        </div>
+                        </br>
+                        <div class="card text-white bg-danger">
+                            <div class="card-header"><i class="fa fa-tint"></i> Humedad del Suelo (Alta)</div>
+                            <div class="card-body">
+                                <h3 class="card-title">> 80%</h3>
+                                <p class="card-text">Riesgo de saturación del suelo, posible asfixia radicular.</p>
+                            </div>
+                        </div>
+                        </br>
+                        <div class="card text-white bg-danger">
+                            <div class="card-header"><i class="fa fa-thermometer-empty"></i> Temperatura del Aire (Baja)</div>
+                            <div class="card-body">
+                                <h3 class="card-title">< 0°C</h3>
+                                <p class="card-text">Riesgo de heladas, posible daño a las plantas.</p>
+                            </div>
+                        </div>
+                        </br>
+                        <div class="card text-white bg-danger">
+                            <div class="card-header"><i class="fa fa-thermometer-full"></i> Temperatura del Aire (Alta)</div>
+                            <div class="card-body">
+                                <h3 class="card-title">> 40°C</h3>
+                                <p class="card-text">Riesgo de golpe de calor, posible daño térmico.</p>
+                            </div>
+                        </div>
+                        </br>
+                        <div class="card text-white bg-danger">
+                            <div class="card-header"><i class="fa fa-flask"></i> pH del Suelo (Ácido)</div>
+                            <div class="card-body">
+                                <h3 class="card-title">< 4.5</h3>
+                                <p class="card-text">pH demasiado ácido, posible toxicidad por aluminio.</p>
+                            </div>
+                        </div>
+                        </br>
+                        <div class="card text-white bg-danger">
+                            <div class="card-header"><i class="fa fa-flask"></i> pH del Suelo (Alcalino)</div>
+                            <div class="card-body">
+                                <h3 class="card-title">> 9</h3>
+                                <p class="card-text">pH demasiado alcalino, posible deficiencia de micronutrientes.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+
+                </div>
+                  
+
+            
+            </div>
+        </main>
+    </div>
+</div>
 
 {% endblock %}
