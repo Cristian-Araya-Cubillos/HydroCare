@@ -3,9 +3,8 @@ import os
 import json
 import csv
 import openai
-from PIL import Image
-from io import BytesIO
-import base64
+import extract_data
+
 app = Flask(__name__, static_url_path='/static', static_folder='static')
 
 # Configura tu clave API de OpenAI
@@ -14,6 +13,10 @@ openai.api_key = os.getenv('OPENAI_API_KEY')
 # Nombre del archivo donde se guardará el historial
 HISTORIAL_FILE = 'historial.json'
 
+def obtener_respuesta(query):
+    respuesta = extract_data.query_data(query)
+    print(respuesta)
+    return respuesta
 
 
 # Función para cargar el historial desde el archivo
@@ -68,10 +71,6 @@ def chatPrincipal():
 def dashboard_view():
     return render_template('dashboard.html')
 
-@app.route('/chat_imagen')
-def chat_imagen():
-    return render_template('chat_imagen.html')
-
 
 @app.route('/chat', methods=['POST'])
 def chat():
@@ -88,13 +87,14 @@ def chat():
     )
     
     # Obtener la respuesta y añadirla al historial
-    respuesta = response.choices[0].message.content
-    historial.append({"role": "assistant", "content": respuesta})
+    respuesta_direc = response.choices[0].message.content
+    respuesta_rag = obtener_respuesta(mensaje)
+    historial.append({"role": "assistant", "content": respuesta_direc})
     
     # Guardar el historial actualizado
     guardar_historial(historial)
     
-    return jsonify({"respuesta": respuesta})
+    return jsonify({"respuesta": respuesta_rag})
 
 @app.route('/chat_frecuente', methods=['POST'])
 def chat_frecuente():
@@ -193,54 +193,6 @@ def get_chart_data():
     
     return jsonify(data)
 
-
-# Ruta para manejar la subida de imágenes y las preguntas sobre ellas
-@app.route('/upload_image', methods=['POST'])
-def upload_image():
-    # Obtén el archivo de la imagen y la pregunta desde la solicitud
-    if 'file' not in request.files:
-        return jsonify({"error": "No file part"}), 400
-
-    file = request.files['file']
-    if file.filename == '':
-        return jsonify({"error": "No selected file"}), 400
-
-    if file:
-        try:
-            # Lee el archivo y conviértelo a base64
-            image_data = file.read()
-            base64_image = base64.b64encode(image_data).decode('utf-8')
-
-            # Obtén la pregunta desde la solicitud
-            question = request.form.get('question', "What’s in this image?")
-
-            # Llama a la API de OpenAI
-            response = openai.chat.completions.create(
-                model="gpt-4o-mini",
-                messages=[
-                    {
-                        "role": "user",
-                        "content": [
-                            {"type": "text", "text": question},
-                            {
-                                "type": "image_url",
-                                "image_url": {
-                                    "url": f"data:image/jpeg;base64,{base64_image}"
-                                },
-                            },
-                        ],
-                    }
-                ],
-                max_tokens=300,
-            )
-
-            # Devuelve la respuesta del modelo
-            return jsonify({"response": response.choices[0].message.content})
-
-        except Exception as e:
-            return jsonify({"error": str(e)}), 500
-
-    return jsonify({"error": "Invalid request"}), 400
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
