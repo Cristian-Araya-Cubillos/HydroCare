@@ -13,6 +13,7 @@ RUN pip install flask
 RUN pip install flask-cors
 RUN pip install requests 
 RUN pip install openai
+RUN pip install Pillow
 
 # Exponer el puerto en el que correrá la aplicación
 EXPOSE 5000

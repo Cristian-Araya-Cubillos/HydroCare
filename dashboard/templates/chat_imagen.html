@@ -1,0 +1,244 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    #respuesta {
+        margin-top: 20px;
+        padding: 15px;
+        background-color: #f8f9fa;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        font-size: 16px;
+        line-height: 1.5;
+        word-wrap: break-word; /* Permite que el texto largo se ajuste dentro del contenedor */
+    }
+
+    #respuesta p {
+        margin: 0;
+        padding: 0;
+    }
+
+    #respuesta.error {
+        background-color: #f8d7da;
+        border-color: #f5c6cb;
+        color: #721c24;
+    }
+
+    #respuesta.success {
+        background-color: #d4edda;
+        border-color: #c3e6cb;
+        color: #155724;
+    }
+    #preview {
+        max-width: 100%;
+        max-height: 400px; /* Ajusta la altura máxima según tus necesidades */
+        display: block;
+        margin-top: 20px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        object-fit: contain; /* Asegura que la imagen se ajuste proporcionalmente */
+    }
+    h1 {
+        margin-bottom: 20px;
+    }
+    .drop-area {
+        border: 2px dashed #007bff;
+        border-radius: 8px;
+        padding: 20px;
+        cursor: pointer;
+        position: relative;
+        background-color: #e9ecef;
+    }
+    .drop-area:hover {
+        background-color: #dee2e6;
+    }
+    .drop-area input {
+        display: none;
+    }
+    .drop-area .message {
+        font-size: 18px;
+        color: #007bff;
+    }
+    .drop-area .icon {
+        font-size: 50px;
+        color: #007bff;
+        margin-bottom: 10px;
+    }
+    #respuesta  {
+        width: 100%;
+        height: 200px;
+        padding: 10px;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        font-size: 16px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        resize: vertical; /* Permite cambiar el tamaño verticalmente */
+        white-space: pre-wrap; /* Mantiene los espacios y saltos de línea */
+        overflow-y: auto; /* Agrega una barra de desplazamiento vertical si el contenido es largo */
+        background-color: #f8f9fa;
+        color: #333;
+        cursor: not-allowed; /* Cambia el cursor para indicar que el área de texto no es editable */
+    }
+    #question {
+        width: 100%;
+        height: 100px;
+        padding: 10px;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        resize: vertical; /* Permite cambiar el tamaño verticalmente */
+        font-size: 16px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    #submit-button {
+        background-color: #007bff;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin-top: 10px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    #submit-button:hover {
+        background-color: #0056b3;
+    }
+    button {
+        background-color: #007bff;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin-top: 10px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <!-- Your sidebar content commented out for brevity -->
+
+        <!-- Main content -->
+        <main class="col-md-10 ms-sm-auto col-lg-10 px-md-4">
+        <h1>Sube una Imagen y Haz una Pregunta</h1>
+        <div id="drop-area" class="drop-area">
+            <div class="icon">📁</div>
+            <div class="message">Arrastra y suelta una imagen aquí o haz clic para seleccionar un archivo</div>
+            <input type="file" id="file" accept="image/*">
+        </div>
+        <img id="preview" src="" alt="">
+        <textarea id="question" placeholder="Escribe tu pregunta aquí..."></textarea>
+        <button id="submit-button">Preguntar</button>
+        <div id="respuesta"></div>
+        <script>
+            const dropArea = document.getElementById('drop-area');
+            const fileInput = document.getElementById('file');
+            const submitButton = document.getElementById('submit-button');
+            const previewImg = document.getElementById('preview');
+            const respuestaDiv = document.getElementById('respuesta');
+            const questionTextarea = document.getElementById('question');
+    
+            // Prevent default behaviors for drag and drop
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                });
+            });
+    
+            dropArea.addEventListener('dragover', () => {
+                dropArea.classList.add('highlight');
+            });
+    
+            dropArea.addEventListener('dragleave', () => {
+                dropArea.classList.remove('highlight');
+            });
+    
+            dropArea.addEventListener('drop', (e) => {
+                const files = e.dataTransfer.files;
+                fileInput.files = files;
+                showPreview(files[0]);
+            });
+    
+            dropArea.addEventListener('click', () => {
+                fileInput.click();
+            });
+    
+            fileInput.addEventListener('change', () => {
+                if (fileInput.files.length > 0) {
+                    showPreview(fileInput.files[0]);
+                }
+            });
+    
+            function showPreview(file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    previewImg.src = event.target.result;
+                    previewImg.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+    
+            submitButton.addEventListener('click', async () => {
+                const file = fileInput.files[0];
+                const question = questionTextarea.value.trim();
+    
+                if (!file) {
+                    respuestaDiv.innerText = 'Por favor, selecciona una imagen.';
+                    return;
+                }
+                if (!question) {
+                    respuestaDiv.innerText = 'Por favor, escribe una pregunta.';
+                    return;
+                }
+    
+                const formData = new FormData();
+                formData.append('file', file);
+                formData.append('question', question);
+    
+                try {
+                    const response = await fetch('/upload_image', {
+                        method: 'POST',
+                        body: formData
+                    });
+    
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+    
+                    const data = await response.json();
+                    if (data.error) {
+                        respuestaDiv.innerText = data.error;
+                    } else {
+                        respuestaDiv.innerText = JSON.stringify(data, null, 2);
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    respuestaDiv.innerText = `Error: ${error.message}`;
+                }
+            });
+        </script>
+      
+        </main>
+    </div>
+</div>
+
+{% endblock %}
