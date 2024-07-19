@@ -11,7 +11,11 @@ services:
     networks:
       - market_net
     environment:
+<<<<<<< HEAD
       OPENAI_API_KEY: ""
+=======
+      OPENAI_API_KEY: "Ingresa Tu OPENAI_API_KEY"
+>>>>>>> 2d7e4425bd6f8cb8cfc608bebc5dea0dfc19d7e5
     volumes:
       - ./dashboard:/app 
 
