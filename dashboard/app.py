@@ -6,6 +6,8 @@ import openai
 from PIL import Image
 from io import BytesIO
 import base64
+import extract_data
+
 app = Flask(__name__, static_url_path='/static', static_folder='static')
 
 # Configura tu clave API de OpenAI
@@ -14,6 +16,10 @@ openai.api_key = os.getenv('OPENAI_API_KEY')
 # Nombre del archivo donde se guardará el historial
 HISTORIAL_FILE = 'historial.json'
 
+def obtener_respuesta(query):
+    respuesta = extract_data.query_data(query)
+    print(respuesta)
+    return respuesta
 
 
 # Función para cargar el historial desde el archivo
@@ -72,12 +78,15 @@ def dashboard_view():
 def chat_imagen():
     return render_template('chat_imagen.html')
 
+historial.append({"role": "system", "content": "Los documentos de los cuales obtengo la informacion son: Ministerio de agricultura Oficina de Estudios y Políticas Agrarias Oficina de Estudios y Políticas Agrarias, Comunidades agricolas Region de Coquimbo, Catastro Fruticola 2021, Crisis Hidrica chile Proyeccion 2030-2040, Cambio Climatico (PANCC SAP) 2023-2027, Propuesta técnica para la integración de la biodiversidad y servicios ecosistémicos en el sector agropecuario, Documentos ODEPA y Plan Nacional de Adaptación al Cambio Climático del Sector Silvoagropecuario"})
 
 @app.route('/chat', methods=['POST'])
 def chat():
+    
     global historial
     mensaje = request.json['mensaje']
-    
+    respuesta_rag = obtener_respuesta(mensaje)
+    historial.append({"role": "system", "content": respuesta_rag})
     # Añadir el mensaje del usuario al historial
     historial.append({"role": "user", "content": mensaje})
     
@@ -88,13 +97,16 @@ def chat():
     )
     
     # Obtener la respuesta y añadirla al historial
-    respuesta = response.choices[0].message.content
-    historial.append({"role": "assistant", "content": respuesta})
+    respuesta_direc = response.choices[0].message.content
+    
+    #respuesta_combinada = f"GPT: {respuesta_direc}\n\nRAG: {respuesta_rag}"
+    
+    historial.append({"role": "assistant", "content": respuesta_direc})
     
     # Guardar el historial actualizado
     guardar_historial(historial)
     
-    return jsonify({"respuesta": respuesta})
+    return jsonify({"respuesta": respuesta_direc})
 
 @app.route('/chat_frecuente', methods=['POST'])
 def chat_frecuente():
