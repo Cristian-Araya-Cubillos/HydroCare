@@ -2,77 +2,78 @@
 
 {% block content %}
 <body class="index-page">
-<div class="container">
-    <div class="humedad-tierra">
-        <div class="card-body">
-            <h5 class="card-title">Humedad de Suelo</h5>
-            <canvas id="soilHumidityChart"></canvas>
+    <div class="container">
+        <!-- <h1>Bienvenidos</h1> -->
+        <div class="humedad-tierra">
+            <div class="card-body">
+                <h5 class="card-title">Humedad de Suelo</h5>
+                <canvas id="soilHumidityChart"></canvas>
+            </div>  
         </div>
-    </div>
-    <div class="humedad-aire">
-        <div class="card-body">
-            <h5 class="card-title">Humedad de Aire</h5>
-            <canvas id="airHumidityChart"></canvas>
+        <div class="humedad-aire">
+            <div class="card-body">
+                <h5 class="card-title">Humedad de Aire</h5>
+                <canvas id="airHumidityChart"></canvas>
+            </div>
         </div>
-    </div>
-    <div class="temp">
-        <div class="card-body">
-            <h5 class="card-title">Temperatura</h5>
-            <canvas id="temperatureChart"></canvas>
+        <div class="temp">
+            <div class="card-body">
+                <h5 class="card-title">Temperatura</h5>
+                <canvas id="temperatureChart"></canvas>
+            </div>
         </div>
-    </div>
-    <div class="vientos">
-        <div class="card-body">
-            <h5 class="card-title">Vientos</h5>
-            <canvas id="windIntensityChart"></canvas>
+        <div class="vientos">
+            <div class="card-body">
+                <h5 class="card-title">Vientos</h5>
+                <canvas id="windIntensityChart"></canvas>
+            </div>
         </div>
-    </div>
-    <div class="Radiacion-Solar">
-        <div class="card-body">
-            <h5 class="card-title">Radiación Solar</h5>
-            <canvas id="solarRadiationChart"></canvas>
+        <div class="Radiacion-Solar">
+            <div class="card-body">
+                <h5 class="card-title">Radiación Solar</h5>
+                <canvas id="solarRadiationChart"></canvas>
+            </div>
         </div>
-    </div>
 
-    <div class="Calendario">
-        <div class="card-body">
-            <!-- <div id="calendar"></div> -->
-            <div class="wrapper">
-                <header>
-                    <h5 class="card-title">Calendario de Datos<br></h5>    
-                    <p class="current-date"></p>
-                    <div class="icons">
-                        <span id="prev" class="material-icons clickable">keyboard_arrow_left</span>
-                        <span id="next" class="material-icons clickable">keyboard_arrow_right</span>
+        <div class="Calendario">
+            <div class="card-body">
+                <!-- <div id="calendar"></div> -->
+                <div class="wrapper">
+                    <header>
+                        <h5 class="card-title">Calendario de Datos<br></h5>    
+                        <p class="current-date"></p>
+                        <div class="icons">
+                            <span id="prev" class="material-icons clickable">keyboard_arrow_left</span>
+                            <span id="next" class="material-icons clickable">keyboard_arrow_right</span>
+                        </div>
+                        <script src="script.js" defer></script>
+                        <link rel="stylesheet" href="style.css">
+                    </header>
+                    <div class="calendar">
+                        <ul class="weeks">
+                            <li>D</li>
+                            <li>L</li>
+                            <li>M</li>
+                            <li>M</li>
+                            <li>J</li>
+                            <li>V</li>
+                            <li>S</li>
+                        </ul>
+                        <ul class="days"></ul>
                     </div>
-                    <script src="script.js" defer></script>
-                    <link rel="stylesheet" href="style.css">
-                </header>
-                <div class="calendar">
-                    <ul class="weeks">
-                        <li>D</li>
-                        <li>L</li>
-                        <li>M</li>
-                        <li>M</li>
-                        <li>J</li>
-                        <li>V</li>
-                        <li>S</li>
-                    </ul>
-                    <ul class="days"></ul>
                 </div>
             </div>
         </div>
-    </div>
 
 
-    <div class="Consumo-Agua">
-        <div class="card-body">
-            <h5 class="card-title">Consumo Hídrico</h5>
-            <div id="waterConsumptionWidget" class="widget-content"></div>
+        <div class="Consumo-Agua">
+            <div class="card-body">
+                <h5 class="card-title">Consumo Hídrico</h5>
+                <div id="waterConsumptionWidget" class="widget-content"></div>
+            </div>
         </div>
+        
     </div>
-    
-</div>
 </body>
 
 <!-- Include Chart.js -->

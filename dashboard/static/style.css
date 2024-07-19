@@ -182,7 +182,7 @@ body{
 .calendar {
   padding: 20px;
   height: 400px; /* Adjust the height as needed */
-  overflow-y: auto; /* Add scrollbars if necessary */
+  /* overflow-y: auto; Add scrollbars if necessary */
 }
 
 .calendar ul {
@@ -267,6 +267,23 @@ body{
 
 /* -- CSS para layout de dashboard cards en inicio -- */
 
+body.index-page {
+  display: flex;
+  flex-direction: column; /* Arrange items vertically */
+  align-items: center; /* Center horizontally */
+  justify-content: center; /* Center vertically */
+  min-height: 100vh; /* Full viewport height */
+  margin: 0; /* Remove default margin */
+  background-color: #f0f0f0; /* Optional: Background color */
+}
+
+h1 {
+  font-size: 2rem; /* Adjust font size */
+  margin-bottom: 20px; /* Space between heading and container */
+  text-align: center; /* Center text */
+  color: #333; /* Optional: Text color */
+}
+
 /* Styles specific to index.html */
 .index-page .container {
   display: grid;
@@ -274,6 +291,12 @@ body{
   grid-template-rows: 1fr 1fr 1fr;
   gap: 10px 10px;
   grid-auto-flow: row;
+    width: 90%; /* Adjust width as needed */
+    /* max-width: 100%; Optional: Set a max width */
+    background: #ffffff; /* Background color for the container */
+    padding: 1px; /* Padding inside the container */
+    border-radius: 10px; /* Optional: Round corners */
+    box-shadow: 0 4px 8px rgb(255, 255, 255); /* Optional: Add shadow */
   grid-template-areas:
       "humedad-tierra humedad-aire temp"
       "vientos Radiacion-Solar Calendario"
