@@ -74,19 +74,12 @@ def chatPrincipal():
 def dashboard_view():
     return render_template('dashboard.html')
 
-@app.route('/chat_imagen')
-def chat_imagen():
-    return render_template('chat_imagen.html')
-
-historial.append({"role": "system", "content": "Los documentos de los cuales obtengo la informacion son: Ministerio de agricultura Oficina de Estudios y Políticas Agrarias Oficina de Estudios y Políticas Agrarias, Comunidades agricolas Region de Coquimbo, Catastro Fruticola 2021, Crisis Hidrica chile Proyeccion 2030-2040, Cambio Climatico (PANCC SAP) 2023-2027, Propuesta técnica para la integración de la biodiversidad y servicios ecosistémicos en el sector agropecuario, Documentos ODEPA y Plan Nacional de Adaptación al Cambio Climático del Sector Silvoagropecuario"})
 
 @app.route('/chat', methods=['POST'])
 def chat():
-    
     global historial
     mensaje = request.json['mensaje']
-    respuesta_rag = obtener_respuesta(mensaje)
-    historial.append({"role": "system", "content": respuesta_rag})
+    
     # Añadir el mensaje del usuario al historial
     historial.append({"role": "user", "content": mensaje})
     
@@ -98,15 +91,13 @@ def chat():
     
     # Obtener la respuesta y añadirla al historial
     respuesta_direc = response.choices[0].message.content
-    
-    #respuesta_combinada = f"GPT: {respuesta_direc}\n\nRAG: {respuesta_rag}"
-    
-    historial.append({"role": "assistant", "content": respuesta_direc})
+    respuesta_rag = obtener_respuesta(mensaje)
+    historial.append({"role": "assistant", "content": respuesta_rag})
     
     # Guardar el historial actualizado
     guardar_historial(historial)
     
-    return jsonify({"respuesta": respuesta_direc})
+    return jsonify({"respuesta": respuesta_rag})
 
 @app.route('/chat_frecuente', methods=['POST'])
 def chat_frecuente():
@@ -205,7 +196,6 @@ def get_chart_data():
     
     return jsonify(data)
 
-
 # Ruta para manejar la subida de imágenes y las preguntas sobre ellas
 @app.route('/upload_image', methods=['POST'])
 def upload_image():
@@ -253,6 +243,7 @@ def upload_image():
             return jsonify({"error": str(e)}), 500
 
     return jsonify({"error": "Invalid request"}), 400
+
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')

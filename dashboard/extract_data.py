@@ -6,6 +6,7 @@ from langchain.llms import OpenAI
 from langchain.chains import RetrievalQA
 import gradio as gr
 from gradio.themes.base import Base
+import params
 
 client = MongoClient("mongodb+srv://hydrocare:1234321@hydrocare.xdit0ht.mongodb.net/")
 dbName = "HydroCare"
@@ -14,7 +15,7 @@ collection = client[dbName][collectionName]
 
 # Define the text embedding model
  
-embeddings = OpenAIEmbeddings(openai_api_key="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")
+embeddings = OpenAIEmbeddings(openai_api_key=params.openai_api_key)
 
 # Initialize the Vector Store
 
@@ -34,12 +35,13 @@ def query_data(query):
     # If it's not specified (for example like in the code below),
     # then the default OpenAI model used in LangChain is OpenAI GPT-3.5-turbo, as of August 30, 2023
     
-    llm = OpenAI(openai_api_key="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", temperature=0)
+    llm = OpenAI(openai_api_key=params.openai_api_key, temperature=0)
 
 
     # Get VectorStoreRetriever: Specifically, Retriever for MongoDB VectorStore.
     # Implements _get_relevant_documents which retrieves documents relevant to a query.
     retriever = vectorStore.as_retriever()
+    
 
     # Load "stuff" documents chain. Stuff documents chain takes a list of documents,
     # inserts them all into a prompt and passes that prompt to an LLM.

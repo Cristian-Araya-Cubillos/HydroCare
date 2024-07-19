@@ -13,6 +13,7 @@ RUN pip install flask
 RUN pip install flask-cors
 RUN pip install requests 
 RUN pip install openai
+RUN pip install Pillow
 RUN pip install langchain pymongo bs4 openai tiktoken gradio requests lxml argparse
 RUN pip install -U langchain-community
 
