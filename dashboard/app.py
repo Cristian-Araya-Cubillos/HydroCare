@@ -78,7 +78,9 @@ def dashboard_view():
 def chat_imagen():
     return render_template('chat_imagen.html')
 
+historial.append({"role": "system", "content": "Eres un experto agricula, especializado en el analisis de metricas y optimizacion de los recursos hidricos"})
 historial.append({"role": "system", "content": "Los documentos de los cuales obtengo la informacion son: Ministerio de agricultura Oficina de Estudios y Políticas Agrarias Oficina de Estudios y Políticas Agrarias, Comunidades agricolas Region de Coquimbo, Catastro Fruticola 2021, Crisis Hidrica chile Proyeccion 2030-2040, Cambio Climatico (PANCC SAP) 2023-2027, Propuesta técnica para la integración de la biodiversidad y servicios ecosistémicos en el sector agropecuario, Documentos ODEPA y Plan Nacional de Adaptación al Cambio Climático del Sector Silvoagropecuario"})
+historial.append({"role": "system", "content": "Fui creado tambien para responder preguntas sobre metricas agricolas, optimizacion de recursos hidricos, recomendaciones de cultivos y analisis de datos"})
 
 @app.route('/chat', methods=['POST'])
 def chat():
